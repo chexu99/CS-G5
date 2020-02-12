@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "926998972164",
+    "firebase_url": "https://ttrispo-40d29.firebaseio.com",
+    "project_id": "ttrispo-40d29",
+    "storage_bucket": "ttrispo-40d29.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:926998972164:android:3024822324de7ba0e6f251",
+        "android_client_info": {
+          "package_name": "com.mygdx.ttrispo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "926998972164-m8lonadri6lcp07o0q896epc5t7i4eao.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhYC-8cGUEA0JDIPJqIVDyWJTj1I0Y1jY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "926998972164-m8lonadri6lcp07o0q896epc5t7i4eao.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
