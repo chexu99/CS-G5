@@ -32,6 +32,10 @@ public class MyGdxGame extends Game implements ApplicationListener {
 
     public static AssetManager manager = new AssetManager();
 
+    public MyGdxGame() {
+
+    }
+
     @Override
     public void create() {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
