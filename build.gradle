@@ -76,3 +76,16 @@ project(":core") {
         implementation "de.tomgrill.gdxfirebase:gdx-firebase-core:0.0.4-SNAPSHOT"
     }
 }
+
+plugins {
+  id "org.sonarqube" version "2.8"
+}
+
+sonarqube {
+  properties {
+    property "sonar.projectKey", "chexu99_CS-G5"
+    property "sonar.organization", "chexu99"
+    property "sonar.host.url", "https://sonarcloud.io"
+    property "sonar.login", "e727badb5e7c5c2f3f67930e109365ed218c397e"
+  }
+}
