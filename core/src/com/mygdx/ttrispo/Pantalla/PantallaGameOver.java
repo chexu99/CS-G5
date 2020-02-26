@@ -33,10 +33,13 @@ import java.util.ArrayList;
 
 public class PantallaGameOver extends PantallaBase {
     private Skin skin;
-    private ImageButton retry, home;
+    private ImageButton retry;
+    private ImageButton home;
     private Texture fondoGameOver;
     private BitmapFont font;
-    private boolean isRankingLoaded, activo, posNuevoJug;
+    private boolean isRankingLoaded;
+    private boolean activo;
+    private boolean posNuevoJug;
     private ArrayList<Jugador> listaRanking;
     private Table table;
     private Label label, labelID, labelAlias;
