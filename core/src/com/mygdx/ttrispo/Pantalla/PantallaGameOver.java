@@ -30,27 +30,37 @@ import com.mygdx.ttrispo.com.mygdx.ttrispo.camara.InterfazCamara;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PantallaGameOver extends PantallaBase {
+    public static String className="PantallaGameOver";
     private Skin skin;
-    private ImageButton retry, home;
+    private ImageButton retry;
+    private ImageButton home;
     private Texture fondoGameOver;
     private BitmapFont font;
-    private boolean isRankingLoaded, activo, posNuevoJug;
+    private boolean isRankingLoaded;
+    private boolean activo;
+    private boolean posNuevoJug;
     private ArrayList<Jugador> listaRanking;
     private Table table;
-    private Label label, labelID, labelAlias;
+    private Label label;
+    private Label labelID;
+    private Label labelAlias;
     private GlyphLayout glyphLayout;
     private String alias;
     private long pasado, futuro;
     private Music musicaGameOver;
     private Sound R2D2Triste;
 
-    public static Pixmap pmap;
-    private ImageButton imageButton, ibaux;
+    private  static Pixmap pmap;
+    private ImageButton imageButton;
+    private ImageButton ibaux;
     private Texture tex;
     private final InterfazCamara iC;
-    private Image vistaImagen, imagenActual;
+    private Image vistaImagen;
+    private Image imagenActual;
 
     private int dimensionImagen;
 
@@ -154,11 +164,17 @@ public class PantallaGameOver extends PantallaBase {
         musicaGameOver.setLooping(true);
     }
 
+
+    public static String getName(){
+        return className;
+    }
+
     private void MensajeAlerta() {
         R2D2Triste.play(0.4f);
         Dialog alerta = new Dialog("Error", skin, "dialog") {
             public void result(Object obj) {
-                System.out.println("result "+obj);
+                Logger.getLogger(PantallaGameOver.getName()).log(Level.INFO, "result "+ obj);
+
             }
         };
         alerta.text("No has conseguido derrotar al lado oscuro, eres muy débil.");
@@ -167,6 +183,7 @@ public class PantallaGameOver extends PantallaBase {
         alerta.center();
         alerta.show(stage);
     }
+
 
     public void onByteArrayOfCroppedImageReciever(byte[] bytes) {
         try {
