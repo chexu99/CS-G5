@@ -35,7 +35,7 @@ import java.util.logging.Logger;
 
 public class PantallaGameOver extends PantallaBase {
     public static String className="PantallaGameOver";
-    private Skin skin;
+    private Skin aspect;
     private ImageButton retry;
     private ImageButton home;
     private Texture fondoGameOver;
@@ -49,7 +49,7 @@ public class PantallaGameOver extends PantallaBase {
     private GlyphLayout glyphLayout;
     private String alias;
     private long pasado;
-    private long futuro;
+
     private Music musicaGameOver;
     private Sound r2D2Triste;
 
@@ -67,7 +67,7 @@ public class PantallaGameOver extends PantallaBase {
     public PantallaGameOver(final MyGdxGame game, final InterfazCamara interfazCamara){
         super(game);
         fondoGameOver = GestorRecursos.get("GameOver.jpeg");
-        skin = new Skin(Gdx.files.internal("skins/default/skin/uiskin.json"));
+        aspect = new Skin(Gdx.files.internal("skins/default/skin/uiskin.json"));
         font = new BitmapFont();
         isRankingLoaded = false;
         table = new Table();
@@ -86,25 +86,25 @@ public class PantallaGameOver extends PantallaBase {
         tableContainer.setSize(cw, ch);
         tableContainer.setPosition((sw-cw)/2.0f, (sh-ch)/1.1f);
         tableContainer.fillX();
-        table.setSkin(skin);
+        table.setSkin(aspect);
 
         imagenActual = new Image(profileP);
 
         this.iC=interfazCamara;
-        imageButton = new ImageButton(skin, "foto");
+        imageButton = new ImageButton(aspect, "foto");
         imageButton.getStyle().imageUp = new TextureRegionDrawable(profileP);
         imageButton.setSize(200, 200);
         imageButton.setPosition(0,0);
         imageButton.setName("imageButton");
         super.stage.addActor(imageButton);
 
-        ibaux = new ImageButton(skin, "foto");
+        ibaux = new ImageButton(aspect, "foto");
         ibaux.getStyle().imageUp = new TextureRegionDrawable(profileP);
         ibaux.setSize(200, 200);
         ibaux.setPosition(0,0);
 
         //Boton start con imagen
-        retry = new ImageButton(skin, "reiniciar");
+        retry = new ImageButton(aspect, "reiniciar");
         retry.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-retry.png")));
         retry.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-retry.png")));
         retry.setSize(retry.getStyle().imageUp.getMinWidth(), retry.getStyle().imageUp.getMinHeight());
@@ -112,7 +112,7 @@ public class PantallaGameOver extends PantallaBase {
         super.stage.addActor(retry);
 
         //Boton retry con imagen
-        home = new ImageButton(skin, "inicio");
+        home = new ImageButton(aspect, "inicio");
         home.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-home.png")));
         home.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-home.png")));
         home.setSize(0.2f*home.getStyle().imageUp.getMinWidth(), 0.2f*home.getStyle().imageUp.getMinHeight());
@@ -171,7 +171,7 @@ public class PantallaGameOver extends PantallaBase {
 
     private void mensajeAlerta() {
         r2D2Triste.play(0.4f);
-        Dialog alerta = new Dialog("Error", skin, "dialog") {
+        Dialog alerta = new Dialog("Error", aspect, "dialog") {
             @Override
             public void result(Object obj) {
                 Logger.getLogger(PantallaGameOver.getName()).log(Level.INFO, "result "+ obj);
@@ -251,6 +251,7 @@ public class PantallaGameOver extends PantallaBase {
     private static ArrayList<Image> vistaImagenes;
     @Override
     public void render(float delta) {
+        long futuro;
         Label label;
         Label labelID;
         Label labelAlias;
@@ -283,9 +284,9 @@ public class PantallaGameOver extends PantallaBase {
                 boolean nuevoRank = false;
                 try {
                     for (int i = 1; i < listaRanking.size(); i++) {
-                        labelID = new Label(i + "ª", skin);
-                        labelAlias = new Label(listaRanking.get(i).getNombre(), skin);
-                        label = new Label(String.valueOf(listaRanking.get(i).getPuntuacion()), skin);
+                        labelID = new Label(i + "ª", aspect);
+                        labelAlias = new Label(listaRanking.get(i).getNombre(), aspect);
+                        label = new Label(String.valueOf(listaRanking.get(i).getPuntuacion()), aspect);
                         label.setAlignment(Align.right);
                         labelAlias.setAlignment(Align.center);
                         labelID.setAlignment(Align.left);
