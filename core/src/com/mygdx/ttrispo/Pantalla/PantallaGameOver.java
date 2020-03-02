@@ -45,14 +45,13 @@ public class PantallaGameOver extends PantallaBase {
     private boolean posNuevoJug;
     private ArrayList<Jugador> listaRanking;
     private Table table;
-    private Label label;
-    private Label labelID;
-    private Label labelAlias;
+
     private GlyphLayout glyphLayout;
     private String alias;
-    private long pasado, futuro;
+    private long pasado;
+    private long futuro;
     private Music musicaGameOver;
-    private Sound R2D2Triste;
+    private Sound r2D2Triste;
 
     private  static Pixmap pmap;
     private ImageButton imageButton;
@@ -61,6 +60,7 @@ public class PantallaGameOver extends PantallaBase {
     private final InterfazCamara iC;
     private Image vistaImagen;
     private Image imagenActual;
+    final Texture profileP=GestorRecursos.get("profile.png");
 
     private int dimensionImagen;
 
@@ -88,18 +88,18 @@ public class PantallaGameOver extends PantallaBase {
         tableContainer.fillX();
         table.setSkin(skin);
 
-        imagenActual = new Image(GestorRecursos.get("profile.png"));
+        imagenActual = new Image(profileP);
 
         this.iC=interfazCamara;
         imageButton = new ImageButton(skin, "foto");
-        imageButton.getStyle().imageUp = new TextureRegionDrawable(GestorRecursos.get("profile.png"));
+        imageButton.getStyle().imageUp = new TextureRegionDrawable(profileP);
         imageButton.setSize(200, 200);
         imageButton.setPosition(0,0);
         imageButton.setName("imageButton");
         super.stage.addActor(imageButton);
 
         ibaux = new ImageButton(skin, "foto");
-        ibaux.getStyle().imageUp = new TextureRegionDrawable(GestorRecursos.get("profile.png"));
+        ibaux.getStyle().imageUp = new TextureRegionDrawable(profileP);
         ibaux.setSize(200, 200);
         ibaux.setPosition(0,0);
 
@@ -138,7 +138,7 @@ public class PantallaGameOver extends PantallaBase {
                     System.out.println("Puntos superados: " + Partida.partidaAux.getPuntuacion());
                 }
                 else if (Partida.partidaAux.getPuntuacion()<= 250){
-                    MensajeAlerta();
+                    mensajeAlerta();
                     System.out.println("Puntos no superados: " + Partida.partidaAux.getPuntuacion());
                 }
                 table.reset();
@@ -159,7 +159,7 @@ public class PantallaGameOver extends PantallaBase {
             }
         });
         //MUSICA GAME OVER
-        R2D2Triste = Gdx.audio.newSound(Gdx.files.internal("Music/Sad R2D2.mp3"));
+        r2D2Triste = Gdx.audio.newSound(Gdx.files.internal("Music/Sad R2D2.mp3"));
         musicaGameOver = Gdx.audio.newMusic(Gdx.files.internal("Music/Imperial March.mp3"));
         musicaGameOver.setLooping(true);
     }
@@ -169,9 +169,10 @@ public class PantallaGameOver extends PantallaBase {
         return className;
     }
 
-    private void MensajeAlerta() {
-        R2D2Triste.play(0.4f);
+    private void mensajeAlerta() {
+        r2D2Triste.play(0.4f);
         Dialog alerta = new Dialog("Error", skin, "dialog") {
+            @Override
             public void result(Object obj) {
                 Logger.getLogger(PantallaGameOver.getName()).log(Level.INFO, "result "+ obj);
 
@@ -250,6 +251,9 @@ public class PantallaGameOver extends PantallaBase {
     private static ArrayList<Image> vistaImagenes;
     @Override
     public void render(float delta) {
+        Label label;
+        Label labelID;
+        Label labelAlias;
         super.render(delta);
         synchronized (vistaImagenes) {
             batch.begin();
@@ -379,6 +383,7 @@ public class PantallaGameOver extends PantallaBase {
         }, "Introduce tu alias", "", " _ _ _ _ _ _ _ _");
     }
 
+    @Override
     public void dispose () {
         musicaGameOver.dispose();
     }
