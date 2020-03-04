@@ -64,6 +64,8 @@ public class PantallaGameOver extends PantallaBase {
 
     private int dimensionImagen;
 
+    private final Logger logger=Logger.getLogger(PantallaGameOver.getName());
+
     public PantallaGameOver(final MyGdxGame game, final InterfazCamara interfazCamara){
         super(game);
         fondoGameOver = GestorRecursos.get("GameOver.jpeg");
@@ -135,11 +137,11 @@ public class PantallaGameOver extends PantallaBase {
             public void clicked(InputEvent event, float x, float y) {
                 if (Partida.partidaAux.getPuntuacion()>= 250){
                     game.setScreen(new Partida(game));
-                    System.out.println("Puntos superados: " + Partida.partidaAux.getPuntuacion());
+                    logger.log(Level.INFO, "Puntos superados {0}",Partida.partidaAux.getPuntuacion());
                 }
                 else if (Partida.partidaAux.getPuntuacion()<= 250){
                     mensajeAlerta();
-                    System.out.println("Puntos no superados: " + Partida.partidaAux.getPuntuacion());
+                    logger.log(Level.INFO, "Puntos no superados {0}",Partida.partidaAux.getPuntuacion());
                 }
                 table.reset();
                 musicaGameOver.stop();
@@ -174,9 +176,9 @@ public class PantallaGameOver extends PantallaBase {
         Dialog alerta = new Dialog("Error", aspect, "dialog") {
             @Override
             public void result(Object obj) {
-                final Logger logger=Logger.getLogger(PantallaGameOver.getName());
+
                 logger.log(Level.INFO,"result {0} ",obj);
-                
+
 
             }
         };
@@ -323,7 +325,9 @@ public class PantallaGameOver extends PantallaBase {
                     }
 
                 } catch (NullPointerException npe) {
-                    System.out.println("ERROR: aun no se habia cargado del todo el ranking.");
+                    logger.log(Level.INFO, "ERROR: aun no se habia cargado del todo el ranking.");
+
+
                 }
                 isRankingLoaded = false;
             } else if (!isRankingLoaded && listaRanking == null) {
@@ -364,7 +368,7 @@ public class PantallaGameOver extends PantallaBase {
             pix = new Pixmap(bytes, 0, bytes.length);
             nuevaTextura = new Texture(pix);
         }else{
-            System.out.println("No he recibido na");
+            logger.log(Level.INFO, "No he recibido na");
         }
         return nuevaTextura;
     }
