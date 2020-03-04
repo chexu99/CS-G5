@@ -175,8 +175,8 @@ public class PantallaGameOver extends PantallaBase {
             @Override
             public void result(Object obj) {
                 final Logger logger=Logger.getLogger(PantallaGameOver.getName());
-                logger.log(Level.INFO,"result"+obj);
-                //Logger.getLogger(PantallaGameOver.getName()).log(Level.INFO, "result "+ obj);
+                logger.log(Level.INFO,"result {0} ",obj);
+                
 
             }
         };
