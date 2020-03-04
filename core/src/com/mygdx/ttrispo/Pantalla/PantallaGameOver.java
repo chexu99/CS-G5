@@ -174,7 +174,9 @@ public class PantallaGameOver extends PantallaBase {
         Dialog alerta = new Dialog("Error", aspect, "dialog") {
             @Override
             public void result(Object obj) {
-                Logger.getLogger(PantallaGameOver.getName()).log(Level.INFO, "result "+ obj);
+                final Logger logger=Logger.getLogger(PantallaGameOver.getName());
+                logger.log(Level.INFO,"result"+obj);
+                //Logger.getLogger(PantallaGameOver.getName()).log(Level.INFO, "result "+ obj);
 
             }
         };
