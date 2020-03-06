@@ -77,7 +77,6 @@ public class PantallaGameOver extends PantallaBase {
         table = new Table();
         glyphLayout = new GlyphLayout();
         vistaImagen = null;
-        vistaImagenes = new ArrayList<>();
         vistaImagenes.add(null); //posicion 0, no me interesa
         posNuevoJug = false;
         dimensionImagen = 100;
