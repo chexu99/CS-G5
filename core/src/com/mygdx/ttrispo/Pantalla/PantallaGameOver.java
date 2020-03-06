@@ -23,6 +23,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.audio.Music;
 
 import com.mygdx.ttrispo.BaseDeDatos.FirebaseCallback;
+import com.mygdx.ttrispo.BaseDeDatos.FirebaseHelper;
 import com.mygdx.ttrispo.BaseDeDatos.Jugador;
 import com.mygdx.ttrispo.Gestores.GestorRecursos;
 import com.mygdx.ttrispo.MyGdxGame;
@@ -34,7 +35,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PantallaGameOver extends PantallaBase {
-    public static String className="PantallaGameOver";
+    private static final String className="PantallaGameOver";
     private Skin aspect;
     private ImageButton retry;
     private ImageButton home;
@@ -65,6 +66,7 @@ public class PantallaGameOver extends PantallaBase {
     private int dimensionImagen;
 
     private final Logger logger=Logger.getLogger(PantallaGameOver.getName());
+    final FirebaseHelper fbHelper= new FirebaseHelper();
 
     public PantallaGameOver(final MyGdxGame game, final InterfazCamara interfazCamara){
         super(game);
@@ -205,7 +207,7 @@ public class PantallaGameOver extends PantallaBase {
                 });
             }
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.log(Level.INFO, "error{0}",e);
         }
     }
 
@@ -220,10 +222,12 @@ public class PantallaGameOver extends PantallaBase {
         musicaGameOver.play();
     }
     private void realShow1() {
-        game.firebaseHelper.rellenarArrayDeRanking(new FirebaseCallback() {
+
+
+             fbHelper.rellenarArrayDeRanking(new FirebaseCallback() {
             @Override
             public void onCallback(ArrayList<Jugador> lista) {
-                game.firebaseHelper.insertarPuntuacionEnRanking(alias, Partida.partidaAux.getPuntuacion(), iC);
+                fbHelper.insertarPuntuacionEnRanking(alias, Partida.partidaAux.getPuntuacion(), iC);
                 listaRanking = lista;
                 if(listaRanking!=null){
                     isRankingLoaded = true;
@@ -270,14 +274,14 @@ public class PantallaGameOver extends PantallaBase {
             }
             if (iC.getResultado1()) {
                 onByteArrayOfCroppedImageReciever(iC.getDatos()); //primero
-                int pos = game.firebaseHelper.determinarPosicionJugador(Partida.partidaAux.getPuntuacion());
+                int pos = fbHelper.determinarPosicionJugador(Partida.partidaAux.getPuntuacion());
                 if (pos != 0) {
                     iC.subirImagen(pos);//segundo
                 }
                 iC.setResultado1(false);
             }
             if (iC.getResultado2()) {
-                game.firebaseHelper.insertarPuntuacionEnRanking(alias, Partida.partidaAux.getPuntuacion(), iC);
+                fbHelper.insertarPuntuacionEnRanking(alias, Partida.partidaAux.getPuntuacion(), iC);
                 iC.setResultado2(false);
             }
             font.setColor(Color.YELLOW);
@@ -361,9 +365,10 @@ public class PantallaGameOver extends PantallaBase {
     }
 
     private Texture nuevaTextura;
-    private Pixmap pix;
+
 
     public Texture conversorBytesAImagen(byte[] bytes) {
+         Pixmap pix;
         if(bytes != null){
             pix = new Pixmap(bytes, 0, bytes.length);
             nuevaTextura = new Texture(pix);
