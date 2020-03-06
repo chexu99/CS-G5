@@ -295,7 +295,7 @@ public class PantallaGameOver extends PantallaBase {
 
                 }
                 isRankingLoaded = false;
-            } else if (!isRankingLoaded && listaRanking == null) {
+            } else if ( listaRanking == null) {
                 tempo();
             }
             batch.end();
