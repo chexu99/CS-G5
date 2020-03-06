@@ -259,7 +259,6 @@ public class PantallaGameOver extends PantallaBase {
     private  ArrayList<Image> vistaImagenes;
     @Override
     public void render(float delta) {
-        long futuro;
         Label label;
         Label labelID;
         Label labelAlias;
@@ -335,21 +334,26 @@ public class PantallaGameOver extends PantallaBase {
                 }
                 isRankingLoaded = false;
             } else if (!isRankingLoaded && listaRanking == null) {
-                font.getData().setScale(2.5f);
-                futuro = System.currentTimeMillis();
-                if (futuro >= pasado + 20000 && pasado != 0) { //20 SEGUNDOS DE ESPERA
-                    glyphLayout.setText(font, "Conectate a internet para");
-                    font.draw(batch, glyphLayout, (Gdx.graphics.getWidth() - glyphLayout.width) / 2, 0.75f * Gdx.graphics.getHeight());
-                    glyphLayout.setText(font, "ver el ranking online");
-                    font.draw(batch, glyphLayout, (Gdx.graphics.getWidth() - glyphLayout.width) / 2, 0.7f * Gdx.graphics.getHeight());
-                } else {
-                    glyphLayout.setText(font, "cargando ranking...");
-                    font.draw(batch, glyphLayout, (Gdx.graphics.getWidth() - glyphLayout.width) / 2, 0.75f * Gdx.graphics.getHeight());
-                }
+                prueba();
             }
             batch.end();
             stage.draw(); // Pintar los actores los botones por encima del background
         }
+    }
+    public void prueba(){
+        long futuro;
+        font.getData().setScale(2.5f);
+        futuro = System.currentTimeMillis();
+        if (futuro >= pasado + 20000 && pasado != 0) { //20 SEGUNDOS DE ESPERA
+            glyphLayout.setText(font, "Conectate a internet para");
+            font.draw(batch, glyphLayout, (Gdx.graphics.getWidth() - glyphLayout.width) / 2, 0.75f * Gdx.graphics.getHeight());
+            glyphLayout.setText(font, "ver el ranking online");
+            font.draw(batch, glyphLayout, (Gdx.graphics.getWidth() - glyphLayout.width) / 2, 0.7f * Gdx.graphics.getHeight());
+        } else {
+            glyphLayout.setText(font, "cargando ranking...");
+            font.draw(batch, glyphLayout, (Gdx.graphics.getWidth() - glyphLayout.width) / 2, 0.75f * Gdx.graphics.getHeight());
+        }
+
     }
     public void pasameImagenAbytes(int posicion){
         File file = iC.getArrayImagenes().get(posicion);
