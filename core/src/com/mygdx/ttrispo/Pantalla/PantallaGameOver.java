@@ -54,7 +54,7 @@ public class PantallaGameOver extends PantallaBase {
     private Music musicaGameOver;
     private Sound r2D2Triste;
 
-    private  static Pixmap pmap;
+    private  Pixmap pmap;
     private ImageButton imageButton;
     private ImageButton ibaux;
     private Texture tex;
