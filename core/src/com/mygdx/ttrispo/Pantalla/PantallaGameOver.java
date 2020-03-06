@@ -35,7 +35,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PantallaGameOver extends PantallaBase {
-    private static final String className="PantallaGameOver";
+    private static final String CLASSNAME ="PantallaGameOver";
     private Skin aspect;
     private ImageButton retry;
     private ImageButton home;
@@ -77,6 +77,7 @@ public class PantallaGameOver extends PantallaBase {
         table = new Table();
         glyphLayout = new GlyphLayout();
         vistaImagen = null;
+        vistaImagenes = new ArrayList<>();
         vistaImagenes.add(null); //posicion 0, no me interesa
         posNuevoJug = false;
         dimensionImagen = 100;
@@ -169,7 +170,7 @@ public class PantallaGameOver extends PantallaBase {
 
 
     public static String getName(){
-        return className;
+        return CLASSNAME;
     }
 
     private void mensajeAlerta() {
@@ -255,7 +256,7 @@ public class PantallaGameOver extends PantallaBase {
     }
 
 
-    private static ArrayList<Image> vistaImagenes;
+    private  ArrayList<Image> vistaImagenes;
     @Override
     public void render(float delta) {
         long futuro;
