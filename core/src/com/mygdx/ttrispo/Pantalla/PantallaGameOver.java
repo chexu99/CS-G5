@@ -259,9 +259,6 @@ public class PantallaGameOver extends PantallaBase {
     private  ArrayList<Image> vistaImagenes;
     @Override
     public void render(float delta) {
-        Label label;
-        Label labelID;
-        Label labelAlias;
         super.render(delta);
         synchronized (vistaImagenes) {
             batch.begin();
@@ -290,42 +287,7 @@ public class PantallaGameOver extends PantallaBase {
             if (isRankingLoaded) {
                 boolean nuevoRank = false;
                 try {
-                    for (int i = 1; i < listaRanking.size(); i++) {
-                        labelID = new Label(i + "ª", aspect);
-                        labelAlias = new Label(listaRanking.get(i).getNombre(), aspect);
-                        label = new Label(String.valueOf(listaRanking.get(i).getPuntuacion()), aspect);
-                        label.setAlignment(Align.right);
-                        labelAlias.setAlignment(Align.center);
-                        labelID.setAlignment(Align.left);
-                        if ((!nuevoRank) && (Partida.partidaAux.getPuntuacion() == listaRanking.get(i).getPuntuacion())) {
-                            label.setFontScale(8);
-                            dimensionImagen = 180;
-                            labelID.setFontScale(9);
-                            labelAlias.setFontScale(5);
-                            nuevoRank = true;
-                            posNuevoJug = true;
-                            for (int j = vistaImagenes.size()-1; j > i; j--) { //desplazar los elementos
-                                vistaImagenes.set(j, vistaImagenes.get(j - 1)); //a cada elemento se le asigna el anterior
-                            }
-                            vistaImagenes.set(i, imagenActual);
-                        } else {
-                            label.setFontScale(4);
-                            dimensionImagen = 120;
-                            labelID.setFontScale(5);
-                            labelAlias.setFontScale(3);
-                        }
-                        table.row();
-                        table.add(labelID).padRight(50);
-                        vistaImagen = vistaImagenes.get(i);
-                        if(posNuevoJug){
-                            table.add(ibaux).size(dimensionImagen, dimensionImagen);
-                            posNuevoJug = false;
-                        }else{
-                            table.add(vistaImagen).size(dimensionImagen, dimensionImagen);
-                        }
-                        table.add(labelAlias).padLeft(50);
-                        table.add(label).padLeft(50);
-                    }
+                    cargaRanking(nuevoRank);
 
                 } catch (NullPointerException npe) {
                     logger.log(Level.INFO, "ERROR: aun no se habia cargado del todo el ranking.");
@@ -334,13 +296,13 @@ public class PantallaGameOver extends PantallaBase {
                 }
                 isRankingLoaded = false;
             } else if (!isRankingLoaded && listaRanking == null) {
-                prueba();
+                tempo();
             }
             batch.end();
             stage.draw(); // Pintar los actores los botones por encima del background
         }
     }
-    public void prueba(){
+    private void tempo(){
         long futuro;
         font.getData().setScale(2.5f);
         futuro = System.currentTimeMillis();
@@ -354,6 +316,48 @@ public class PantallaGameOver extends PantallaBase {
             font.draw(batch, glyphLayout, (Gdx.graphics.getWidth() - glyphLayout.width) / 2, 0.75f * Gdx.graphics.getHeight());
         }
 
+
+    }
+    private void cargaRanking(boolean nuevoRank){
+        Label label;
+        Label labelID;
+        Label labelAlias;
+        for (int i = 1; i < listaRanking.size(); i++) {
+            labelID = new Label(i + "ª", aspect);
+            labelAlias = new Label(listaRanking.get(i).getNombre(), aspect);
+            label = new Label(String.valueOf(listaRanking.get(i).getPuntuacion()), aspect);
+            label.setAlignment(Align.right);
+            labelAlias.setAlignment(Align.center);
+            labelID.setAlignment(Align.left);
+            if ((!nuevoRank) && (Partida.partidaAux.getPuntuacion() == listaRanking.get(i).getPuntuacion())) {
+                label.setFontScale(8);
+                dimensionImagen = 180;
+                labelID.setFontScale(9);
+                labelAlias.setFontScale(5);
+                nuevoRank = true;
+                posNuevoJug = true;
+                for (int j = vistaImagenes.size()-1; j > i; j--) { //desplazar los elementos
+                    vistaImagenes.set(j, vistaImagenes.get(j - 1)); //a cada elemento se le asigna el anterior
+                }
+                vistaImagenes.set(i, imagenActual);
+            } else {
+                label.setFontScale(4);
+                dimensionImagen = 120;
+                labelID.setFontScale(5);
+                labelAlias.setFontScale(3);
+            }
+            table.row();
+            table.add(labelID).padRight(50);
+            vistaImagen = vistaImagenes.get(i);
+            if(posNuevoJug){
+                table.add(ibaux).size(dimensionImagen, dimensionImagen);
+                posNuevoJug = false;
+            }else{
+                table.add(vistaImagen).size(dimensionImagen, dimensionImagen);
+            }
+            table.add(labelAlias).padLeft(50);
+            table.add(label).padLeft(50);
+        }
     }
     public void pasameImagenAbytes(int posicion){
         File file = iC.getArrayImagenes().get(posicion);
