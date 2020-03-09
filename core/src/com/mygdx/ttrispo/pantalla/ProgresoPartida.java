@@ -1,4 +1,4 @@
-package com.mygdx.ttrispo.Pantalla;
+package com.mygdx.ttrispo.pantalla;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;

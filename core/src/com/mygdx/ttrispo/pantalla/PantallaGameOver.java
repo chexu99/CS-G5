@@ -1,4 +1,4 @@
-package com.mygdx.ttrispo.Pantalla;
+package com.mygdx.ttrispo.pantalla;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -33,6 +33,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static com.mygdx.ttrispo.MyGdxGame.*;
 
 public class PantallaGameOver extends PantallaBase {
     private static final String CLASSNAME ="PantallaGameOver";
@@ -364,7 +366,7 @@ public class PantallaGameOver extends PantallaBase {
         byte[] bites = iC.convertirFileAbyte(file);
         while (iC.getContadorBytesArchivo() != iC.getContadorBytesArray());
         if(iC.getContadorBytesArchivo() == iC.getContadorBytesArray()){
-            game.VARIABLE_GLOBAL_PROGRESO+=0.05f;
+            VARIABLE_GLOBAL_PROGRESO +=0.05f;
             vistaImagen = new Image(conversorBytesAImagen(bites));
             synchronized (vistaImagenes){
                 vistaImagenes.add(vistaImagen);
