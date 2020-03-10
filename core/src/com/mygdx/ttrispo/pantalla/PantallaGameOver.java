@@ -114,7 +114,14 @@ public class PantallaGameOver extends PantallaBase {
         retry.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-retry.png")));
         retry.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-retry.png")));
         retry.setSize(retry.getStyle().imageUp.getMinWidth(), retry.getStyle().imageUp.getMinHeight());
-        retry.setPosition((Gdx.graphics.getWidth()/2.0f)-(retry.getStyle().imageUp.getMinWidth()/2.0f), Gdx.graphics.getHeight()/6);
+        float x= (float)Gdx.graphics.getWidth()/2.0f;
+        float xm= retry.getStyle().imageUp.getMinWidth()/2.0f;
+        float y= (float)Gdx.graphics.getHeight()/6;
+
+        retry.setPosition((x)-(xm), y);
+
+
+        //retry.setPosition((Gdx.graphics.getWidth()/2.0f)-(retry.getStyle().imageUp.getMinWidth()/2.0f), Gdx.graphics.getHeight()/6);
         super.stage.addActor(retry);
 
         //Boton retry con imagen
@@ -366,7 +373,7 @@ public class PantallaGameOver extends PantallaBase {
         byte[] bites = iC.convertirFileAbyte(file);
         while (iC.getContadorBytesArchivo() != iC.getContadorBytesArray());
         if(iC.getContadorBytesArchivo() == iC.getContadorBytesArray()){
-            VARIABLE_GLOBAL_PROGRESO +=0.05f;
+            VARIABLE_GLOBAL_PROGRESO = VARIABLE_GLOBAL_PROGRESO + 0.05f;
             vistaImagen = new Image(conversorBytesAImagen(bites));
             synchronized (vistaImagenes){
                 vistaImagenes.add(vistaImagen);
