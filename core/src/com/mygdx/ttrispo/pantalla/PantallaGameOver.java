@@ -118,18 +118,18 @@ public class PantallaGameOver extends PantallaBase {
         float xm= retry.getStyle().imageUp.getMinWidth()/2.0f;
         float y= (float)Gdx.graphics.getHeight()/6;
 
+
         retry.setPosition((x)-(xm), y);
-
-
-        //retry.setPosition((Gdx.graphics.getWidth()/2.0f)-(retry.getStyle().imageUp.getMinWidth()/2.0f), Gdx.graphics.getHeight()/6);
         super.stage.addActor(retry);
 
         //Boton retry con imagen
+        float x3= (float) 0.1f*home.getStyle().imageUp.getMinWidth();
+        float y2= (float)Gdx.graphics.getHeight()/10;
         home = new ImageButton(aspect, "inicio");
         home.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-home.png")));
         home.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-home.png")));
         home.setSize(0.2f*home.getStyle().imageUp.getMinWidth(), 0.2f*home.getStyle().imageUp.getMinHeight());
-        home.setPosition((Gdx.graphics.getWidth() / 2.0f) - (0.1f*home.getStyle().imageUp.getMinWidth()), Gdx.graphics.getHeight() / 10);
+        home.setPosition((x) - (x3), y2);
         super.stage.addActor(home);
 
         //Contenedor de la tabla del ranking
