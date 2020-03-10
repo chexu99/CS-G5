@@ -69,6 +69,7 @@ public class PantallaGameOver extends PantallaBase {
 
     private final Logger logger=Logger.getLogger(PantallaGameOver.getName());
     final FirebaseHelper fbHelper= new FirebaseHelper();
+    static float progreso= VARIABLE_GLOBAL_PROGRESO;
 
     public PantallaGameOver(final MyGdxGame game, final InterfazCamara interfazCamara){
         super(game);
@@ -123,7 +124,7 @@ public class PantallaGameOver extends PantallaBase {
         super.stage.addActor(retry);
 
         //Boton retry con imagen
-        float x3= (float) 0.1f*home.getStyle().imageUp.getMinWidth();
+        float x3= (float) 0.1*home.getStyle().imageUp.getMinWidth();
         float y2= (float)Gdx.graphics.getHeight()/10;
         home = new ImageButton(aspect, "inicio");
         home.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-home.png")));
@@ -373,7 +374,7 @@ public class PantallaGameOver extends PantallaBase {
         byte[] bites = iC.convertirFileAbyte(file);
         while (iC.getContadorBytesArchivo() != iC.getContadorBytesArray());
         if(iC.getContadorBytesArchivo() == iC.getContadorBytesArray()){
-            VARIABLE_GLOBAL_PROGRESO = VARIABLE_GLOBAL_PROGRESO + 0.05f;
+            progreso = progreso + 0.05f;
             vistaImagen = new Image(conversorBytesAImagen(bites));
             synchronized (vistaImagenes){
                 vistaImagenes.add(vistaImagen);
