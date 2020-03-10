@@ -13,15 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.mygdx.ttrispo.BaseDeDatos.FirebaseHelper;
-import com.mygdx.ttrispo.Gestores.GestorRecursos;
-import com.mygdx.ttrispo.Pantalla.PantallaAjustes;
-import com.mygdx.ttrispo.Pantalla.PantallaBase;
-import com.mygdx.ttrispo.Pantalla.PantallaGameOver;
-import com.mygdx.ttrispo.Pantalla.PantallaInicio;
-import com.mygdx.ttrispo.com.mygdx.ttrispo.camara.InterfazCamara;
 
 public class SplashScreen implements Screen {
     private SpriteBatch batch;

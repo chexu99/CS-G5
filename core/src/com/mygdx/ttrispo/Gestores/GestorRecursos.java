@@ -6,7 +6,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 
 import com.mygdx.ttrispo.MyGdxGame;
-import com.mygdx.ttrispo.Pantalla.PantallaGameOver;
+import com.mygdx.ttrispo.pantalla.PantallaGameOver;
 import com.mygdx.ttrispo.com.mygdx.ttrispo.camara.InterfazCamara;
 
 import static java.lang.Thread.sleep;

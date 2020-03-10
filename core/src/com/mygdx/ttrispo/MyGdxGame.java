@@ -7,12 +7,10 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.mygdx.ttrispo.BaseDeDatos.FirebaseHelper;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.ttrispo.Gestores.GestorRecursos;
-import com.mygdx.ttrispo.Pantalla.PantallaAjustes;
-import com.mygdx.ttrispo.Pantalla.PantallaGameOver;
-import com.mygdx.ttrispo.Pantalla.PantallaInicio;
+import com.mygdx.ttrispo.pantalla.PantallaAjustes;
+import com.mygdx.ttrispo.pantalla.PantallaGameOver;
+import com.mygdx.ttrispo.pantalla.PantallaInicio;
 import com.mygdx.ttrispo.com.mygdx.ttrispo.camara.InterfazCamara;
-
-import java.util.concurrent.CountDownLatch;
 
 public class MyGdxGame extends Game implements ApplicationListener {
     public static float ratioPixelesHeight, ratioPixelesWidth;

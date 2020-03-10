@@ -1,4 +1,4 @@
-package com.mygdx.ttrispo.Pantalla;
+package com.mygdx.ttrispo.pantalla;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -23,6 +23,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.audio.Music;
 
 import com.mygdx.ttrispo.BaseDeDatos.FirebaseCallback;
+import com.mygdx.ttrispo.BaseDeDatos.FirebaseHelper;
 import com.mygdx.ttrispo.BaseDeDatos.Jugador;
 import com.mygdx.ttrispo.Gestores.GestorRecursos;
 import com.mygdx.ttrispo.MyGdxGame;
@@ -33,8 +34,10 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static com.mygdx.ttrispo.MyGdxGame.*;
+
 public class PantallaGameOver extends PantallaBase {
-    public static String className="PantallaGameOver";
+    private static final String CLASSNAME ="PantallaGameOver";
     private Skin aspect;
     private ImageButton retry;
     private ImageButton home;
@@ -53,7 +56,7 @@ public class PantallaGameOver extends PantallaBase {
     private Music musicaGameOver;
     private Sound r2D2Triste;
 
-    private  static Pixmap pmap;
+    private  Pixmap pmap;
     private ImageButton imageButton;
     private ImageButton ibaux;
     private Texture tex;
@@ -63,6 +66,9 @@ public class PantallaGameOver extends PantallaBase {
     final Texture profileP=GestorRecursos.get("profile.png");
 
     private int dimensionImagen;
+
+    private final Logger logger=Logger.getLogger(PantallaGameOver.getName());
+    final FirebaseHelper fbHelper= new FirebaseHelper();
 
     public PantallaGameOver(final MyGdxGame game, final InterfazCamara interfazCamara){
         super(game);
@@ -135,11 +141,11 @@ public class PantallaGameOver extends PantallaBase {
             public void clicked(InputEvent event, float x, float y) {
                 if (Partida.partidaAux.getPuntuacion()>= 250){
                     game.setScreen(new Partida(game));
-                    System.out.println("Puntos superados: " + Partida.partidaAux.getPuntuacion());
+                    logger.log(Level.INFO, "Puntos superados {0}",Partida.partidaAux.getPuntuacion());
                 }
                 else if (Partida.partidaAux.getPuntuacion()<= 250){
                     mensajeAlerta();
-                    System.out.println("Puntos no superados: " + Partida.partidaAux.getPuntuacion());
+                    logger.log(Level.INFO, "Puntos no superados {0}",Partida.partidaAux.getPuntuacion());
                 }
                 table.reset();
                 musicaGameOver.stop();
@@ -166,7 +172,7 @@ public class PantallaGameOver extends PantallaBase {
 
 
     public static String getName(){
-        return className;
+        return CLASSNAME;
     }
 
     private void mensajeAlerta() {
@@ -174,7 +180,9 @@ public class PantallaGameOver extends PantallaBase {
         Dialog alerta = new Dialog("Error", aspect, "dialog") {
             @Override
             public void result(Object obj) {
-                Logger.getLogger(PantallaGameOver.getName()).log(Level.INFO, "result "+ obj);
+
+                logger.log(Level.INFO,"result {0} ",obj);
+
 
             }
         };
@@ -201,7 +209,7 @@ public class PantallaGameOver extends PantallaBase {
                 });
             }
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.log(Level.INFO, "error{0}",e);
         }
     }
 
@@ -216,10 +224,12 @@ public class PantallaGameOver extends PantallaBase {
         musicaGameOver.play();
     }
     private void realShow1() {
-        game.firebaseHelper.rellenarArrayDeRanking(new FirebaseCallback() {
+
+
+             fbHelper.rellenarArrayDeRanking(new FirebaseCallback() {
             @Override
             public void onCallback(ArrayList<Jugador> lista) {
-                game.firebaseHelper.insertarPuntuacionEnRanking(alias, Partida.partidaAux.getPuntuacion(), iC);
+                fbHelper.insertarPuntuacionEnRanking(alias, Partida.partidaAux.getPuntuacion(), iC);
                 listaRanking = lista;
                 if(listaRanking!=null){
                     isRankingLoaded = true;
@@ -248,13 +258,9 @@ public class PantallaGameOver extends PantallaBase {
     }
 
 
-    private static ArrayList<Image> vistaImagenes;
+    private  ArrayList<Image> vistaImagenes;
     @Override
     public void render(float delta) {
-        long futuro;
-        Label label;
-        Label labelID;
-        Label labelAlias;
         super.render(delta);
         synchronized (vistaImagenes) {
             batch.begin();
@@ -266,14 +272,14 @@ public class PantallaGameOver extends PantallaBase {
             }
             if (iC.getResultado1()) {
                 onByteArrayOfCroppedImageReciever(iC.getDatos()); //primero
-                int pos = game.firebaseHelper.determinarPosicionJugador(Partida.partidaAux.getPuntuacion());
+                int pos = fbHelper.determinarPosicionJugador(Partida.partidaAux.getPuntuacion());
                 if (pos != 0) {
                     iC.subirImagen(pos);//segundo
                 }
                 iC.setResultado1(false);
             }
             if (iC.getResultado2()) {
-                game.firebaseHelper.insertarPuntuacionEnRanking(alias, Partida.partidaAux.getPuntuacion(), iC);
+                fbHelper.insertarPuntuacionEnRanking(alias, Partida.partidaAux.getPuntuacion(), iC);
                 iC.setResultado2(false);
             }
             font.setColor(Color.YELLOW);
@@ -283,62 +289,76 @@ public class PantallaGameOver extends PantallaBase {
             if (isRankingLoaded) {
                 boolean nuevoRank = false;
                 try {
-                    for (int i = 1; i < listaRanking.size(); i++) {
-                        labelID = new Label(i + "ª", aspect);
-                        labelAlias = new Label(listaRanking.get(i).getNombre(), aspect);
-                        label = new Label(String.valueOf(listaRanking.get(i).getPuntuacion()), aspect);
-                        label.setAlignment(Align.right);
-                        labelAlias.setAlignment(Align.center);
-                        labelID.setAlignment(Align.left);
-                        if ((!nuevoRank) && (Partida.partidaAux.getPuntuacion() == listaRanking.get(i).getPuntuacion())) {
-                            label.setFontScale(8);
-                            dimensionImagen = 180;
-                            labelID.setFontScale(9);
-                            labelAlias.setFontScale(5);
-                            nuevoRank = true;
-                            posNuevoJug = true;
-                            for (int j = vistaImagenes.size()-1; j > i; j--) { //desplazar los elementos
-                                vistaImagenes.set(j, vistaImagenes.get(j - 1)); //a cada elemento se le asigna el anterior
-                            }
-                            vistaImagenes.set(i, imagenActual);
-                        } else {
-                            label.setFontScale(4);
-                            dimensionImagen = 120;
-                            labelID.setFontScale(5);
-                            labelAlias.setFontScale(3);
-                        }
-                        table.row();
-                        table.add(labelID).padRight(50);
-                        vistaImagen = vistaImagenes.get(i);
-                        if(posNuevoJug){
-                            table.add(ibaux).size(dimensionImagen, dimensionImagen);
-                            posNuevoJug = false;
-                        }else{
-                            table.add(vistaImagen).size(dimensionImagen, dimensionImagen);
-                        }
-                        table.add(labelAlias).padLeft(50);
-                        table.add(label).padLeft(50);
-                    }
+                    cargaRanking(nuevoRank);
 
                 } catch (NullPointerException npe) {
-                    System.out.println("ERROR: aun no se habia cargado del todo el ranking.");
+                    logger.log(Level.INFO, "ERROR: aun no se habia cargado del todo el ranking.");
+
+
                 }
                 isRankingLoaded = false;
-            } else if (!isRankingLoaded && listaRanking == null) {
-                font.getData().setScale(2.5f);
-                futuro = System.currentTimeMillis();
-                if (futuro >= pasado + 20000 && pasado != 0) { //20 SEGUNDOS DE ESPERA
-                    glyphLayout.setText(font, "Conectate a internet para");
-                    font.draw(batch, glyphLayout, (Gdx.graphics.getWidth() - glyphLayout.width) / 2, 0.75f * Gdx.graphics.getHeight());
-                    glyphLayout.setText(font, "ver el ranking online");
-                    font.draw(batch, glyphLayout, (Gdx.graphics.getWidth() - glyphLayout.width) / 2, 0.7f * Gdx.graphics.getHeight());
-                } else {
-                    glyphLayout.setText(font, "cargando ranking...");
-                    font.draw(batch, glyphLayout, (Gdx.graphics.getWidth() - glyphLayout.width) / 2, 0.75f * Gdx.graphics.getHeight());
-                }
+            } else if ( listaRanking == null) {
+                tempo();
             }
             batch.end();
             stage.draw(); // Pintar los actores los botones por encima del background
+        }
+    }
+    private void tempo(){
+        long futuro;
+        font.getData().setScale(2.5f);
+        futuro = System.currentTimeMillis();
+        if (futuro >= pasado + 20000 && pasado != 0) { //20 SEGUNDOS DE ESPERA
+            glyphLayout.setText(font, "Conectate a internet para");
+            font.draw(batch, glyphLayout, (Gdx.graphics.getWidth() - glyphLayout.width) / 2, 0.75f * Gdx.graphics.getHeight());
+            glyphLayout.setText(font, "ver el ranking online");
+            font.draw(batch, glyphLayout, (Gdx.graphics.getWidth() - glyphLayout.width) / 2, 0.7f * Gdx.graphics.getHeight());
+        } else {
+            glyphLayout.setText(font, "cargando ranking...");
+            font.draw(batch, glyphLayout, (Gdx.graphics.getWidth() - glyphLayout.width) / 2, 0.75f * Gdx.graphics.getHeight());
+        }
+
+
+    }
+    private void cargaRanking(boolean nuevoRank){
+        Label label;
+        Label labelID;
+        Label labelAlias;
+        for (int i = 1; i < listaRanking.size(); i++) {
+            labelID = new Label(i + "ª", aspect);
+            labelAlias = new Label(listaRanking.get(i).getNombre(), aspect);
+            label = new Label(String.valueOf(listaRanking.get(i).getPuntuacion()), aspect);
+            label.setAlignment(Align.right);
+            labelAlias.setAlignment(Align.center);
+            labelID.setAlignment(Align.left);
+            if ((!nuevoRank) && (Partida.partidaAux.getPuntuacion() == listaRanking.get(i).getPuntuacion())) {
+                label.setFontScale(8);
+                dimensionImagen = 180;
+                labelID.setFontScale(9);
+                labelAlias.setFontScale(5);
+                nuevoRank = true;
+                posNuevoJug = true;
+                for (int j = vistaImagenes.size()-1; j > i; j--) { //desplazar los elementos
+                    vistaImagenes.set(j, vistaImagenes.get(j - 1)); //a cada elemento se le asigna el anterior
+                }
+                vistaImagenes.set(i, imagenActual);
+            } else {
+                label.setFontScale(4);
+                dimensionImagen = 120;
+                labelID.setFontScale(5);
+                labelAlias.setFontScale(3);
+            }
+            table.row();
+            table.add(labelID).padRight(50);
+            vistaImagen = vistaImagenes.get(i);
+            if(posNuevoJug){
+                table.add(ibaux).size(dimensionImagen, dimensionImagen);
+                posNuevoJug = false;
+            }else{
+                table.add(vistaImagen).size(dimensionImagen, dimensionImagen);
+            }
+            table.add(labelAlias).padLeft(50);
+            table.add(label).padLeft(50);
         }
     }
     public void pasameImagenAbytes(int posicion){
@@ -346,7 +366,7 @@ public class PantallaGameOver extends PantallaBase {
         byte[] bites = iC.convertirFileAbyte(file);
         while (iC.getContadorBytesArchivo() != iC.getContadorBytesArray());
         if(iC.getContadorBytesArchivo() == iC.getContadorBytesArray()){
-            game.VARIABLE_GLOBAL_PROGRESO+=0.05f;
+            VARIABLE_GLOBAL_PROGRESO +=0.05f;
             vistaImagen = new Image(conversorBytesAImagen(bites));
             synchronized (vistaImagenes){
                 vistaImagenes.add(vistaImagen);
@@ -355,14 +375,15 @@ public class PantallaGameOver extends PantallaBase {
     }
 
     private Texture nuevaTextura;
-    private Pixmap pix;
+
 
     public Texture conversorBytesAImagen(byte[] bytes) {
+         Pixmap pix;
         if(bytes != null){
             pix = new Pixmap(bytes, 0, bytes.length);
             nuevaTextura = new Texture(pix);
         }else{
-            System.out.println("No he recibido na");
+            logger.log(Level.INFO, "No he recibido na");
         }
         return nuevaTextura;
     }
