@@ -152,6 +152,7 @@ public class PantallaGameOver extends PantallaBase {
                 game.setScreen(new Partida(game));
             }
         });
+
         home.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -404,7 +405,7 @@ public class PantallaGameOver extends PantallaBase {
             }
         }, "Introduce tu alias", "", " _ _ _ _ _ _ _ _");
     }
-
+    //Just a comment to emulate a bugfix to show how to use gitflow properly
     @Override
     public void dispose () {
         musicaGameOver.dispose();
