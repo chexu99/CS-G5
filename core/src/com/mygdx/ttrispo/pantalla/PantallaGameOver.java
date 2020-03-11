@@ -124,12 +124,15 @@ public class PantallaGameOver extends PantallaBase {
         super.stage.addActor(retry);
 
         //Boton retry con imagen
-        float x3= (float) 0.1*home.getStyle().imageUp.getMinWidth();
-        float y2= (float)Gdx.graphics.getHeight()/10;
+
         home = new ImageButton(aspect, "inicio");
         home.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-home.png")));
         home.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-home.png")));
         home.setSize(0.2f*home.getStyle().imageUp.getMinWidth(), 0.2f*home.getStyle().imageUp.getMinHeight());
+
+        float x3= (float) 0.1*home.getStyle().imageUp.getMinWidth();
+        float y2= (float)Gdx.graphics.getHeight()/10;
+
         home.setPosition((x) - (x3), y2);
         super.stage.addActor(home);
 
@@ -218,7 +221,7 @@ public class PantallaGameOver extends PantallaBase {
                 });
             }
         } catch(Exception e) {
-            logger.log(Level.INFO, "error{0}",e);
+            logger.log(Level.INFO,"Ocurrió un error", e);
         }
     }
 
