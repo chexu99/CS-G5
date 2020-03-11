@@ -69,7 +69,7 @@ public class PantallaGameOver extends PantallaBase {
 
     private final Logger logger=Logger.getLogger(PantallaGameOver.getName());
     final FirebaseHelper fbHelper= new FirebaseHelper();
-    static float progreso= VARIABLE_GLOBAL_PROGRESO;
+
 
     public PantallaGameOver(final MyGdxGame game, final InterfazCamara interfazCamara){
         super(game);
@@ -375,10 +375,13 @@ public class PantallaGameOver extends PantallaBase {
     }
     public void pasameImagenAbytes(int posicion){
         File file = iC.getArrayImagenes().get(posicion);
+        MyGdxGame aux= new MyGdxGame();
+        float progreso= aux.getVARIABLE_GLOBAL_PROGRESO();
         byte[] bites = iC.convertirFileAbyte(file);
         while (iC.getContadorBytesArchivo() != iC.getContadorBytesArray());
         if(iC.getContadorBytesArchivo() == iC.getContadorBytesArray()){
             progreso = progreso + 0.05f;
+            aux.setVARIABLE_GLOBAL_PROGRESO(progreso);
             vistaImagen = new Image(conversorBytesAImagen(bites));
             synchronized (vistaImagenes){
                 vistaImagenes.add(vistaImagen);
