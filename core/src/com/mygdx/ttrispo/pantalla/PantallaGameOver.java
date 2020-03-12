@@ -420,6 +420,7 @@ public class PantallaGameOver extends PantallaBase {
         }, "Introduce tu alias", "", " _ _ _ _ _ _ _ _");
     }
     //Just a comment to emulate a bugfix to show how to use gitflow properly.
+    //Esta clase ya esta refactorizada
     @Override
     public void dispose () {
         musicaGameOver.dispose();
