@@ -23,6 +23,7 @@ public class BotonBase extends Actor {
         gE2 = gestorEstado2; //este se actualiza en el ciclo de vida de la otra pieza, el gE de arriba no
         //Botones
         Skin skin = new Skin(Gdx.files.internal("skins/default/skin/uiskin.json"));
+        //Skin skin = new Skin(lo que sea) -> Para simular la nueva Feature
 
         //Boton derecha
         derecha = new ImageButton(skin, "derecha");
