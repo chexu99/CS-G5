@@ -34,6 +34,12 @@ public class MyGdxGame extends Game implements ApplicationListener {
 
     }
 
+    public void setVARIABLE_GLOBAL_PROGRESO(float progeso){
+        this.VARIABLE_GLOBAL_PROGRESO= progeso;
+    }
+    public float getVARIABLE_GLOBAL_PROGRESO(){
+        return VARIABLE_GLOBAL_PROGRESO;
+    }
     @Override
     public void create() {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);

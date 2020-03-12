@@ -70,6 +70,7 @@ public class PantallaGameOver extends PantallaBase {
     private final Logger logger=Logger.getLogger(PantallaGameOver.getName());
     final FirebaseHelper fbHelper= new FirebaseHelper();
 
+
     public PantallaGameOver(final MyGdxGame game, final InterfazCamara interfazCamara){
         super(game);
         fondoGameOver = GestorRecursos.get("GameOver.jpeg");
@@ -114,15 +115,25 @@ public class PantallaGameOver extends PantallaBase {
         retry.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-retry.png")));
         retry.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-retry.png")));
         retry.setSize(retry.getStyle().imageUp.getMinWidth(), retry.getStyle().imageUp.getMinHeight());
-        retry.setPosition((Gdx.graphics.getWidth()/2.0f)-(retry.getStyle().imageUp.getMinWidth()/2.0f), Gdx.graphics.getHeight()/6);
+        float x= (float)Gdx.graphics.getWidth()/2.0f;
+        float xm= retry.getStyle().imageUp.getMinWidth()/2.0f;
+        float y= (float)Gdx.graphics.getHeight()/6;
+
+
+        retry.setPosition((x)-(xm), y);
         super.stage.addActor(retry);
 
         //Boton retry con imagen
+
         home = new ImageButton(aspect, "inicio");
         home.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-home.png")));
         home.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-home.png")));
         home.setSize(0.2f*home.getStyle().imageUp.getMinWidth(), 0.2f*home.getStyle().imageUp.getMinHeight());
-        home.setPosition((Gdx.graphics.getWidth() / 2.0f) - (0.1f*home.getStyle().imageUp.getMinWidth()), Gdx.graphics.getHeight() / 10);
+
+        float x3= (float) 0.1*home.getStyle().imageUp.getMinWidth();
+        float y2= (float)Gdx.graphics.getHeight()/10;
+
+        home.setPosition((x) - (x3), y2);
         super.stage.addActor(home);
 
         //Contenedor de la tabla del ranking
@@ -210,7 +221,7 @@ public class PantallaGameOver extends PantallaBase {
                 });
             }
         } catch(Exception e) {
-            logger.log(Level.INFO, "error{0}",e);
+            logger.log(Level.INFO,"Ocurrió un error", e);
         }
     }
 
@@ -364,10 +375,13 @@ public class PantallaGameOver extends PantallaBase {
     }
     public void pasameImagenAbytes(int posicion){
         File file = iC.getArrayImagenes().get(posicion);
+        MyGdxGame aux= new MyGdxGame();
+        float progreso= aux.getVARIABLE_GLOBAL_PROGRESO();
         byte[] bites = iC.convertirFileAbyte(file);
         while (iC.getContadorBytesArchivo() != iC.getContadorBytesArray());
         if(iC.getContadorBytesArchivo() == iC.getContadorBytesArray()){
-            VARIABLE_GLOBAL_PROGRESO +=0.05f;
+            progreso = progreso + 0.05f;
+            aux.setVARIABLE_GLOBAL_PROGRESO(progreso);
             vistaImagen = new Image(conversorBytesAImagen(bites));
             synchronized (vistaImagenes){
                 vistaImagenes.add(vistaImagen);
@@ -406,6 +420,7 @@ public class PantallaGameOver extends PantallaBase {
         }, "Introduce tu alias", "", " _ _ _ _ _ _ _ _");
     }
     //Just a comment to emulate a bugfix to show how to use gitflow properly.
+    //Esta clase ya esta refactorizada
     @Override
     public void dispose () {
         musicaGameOver.dispose();
