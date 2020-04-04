@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static com.mygdx.ttrispo.Gestores.GestorRecursos.get;
 import static com.mygdx.ttrispo.MyGdxGame.*;
 
 public class PantallaGameOver extends PantallaBase {
@@ -63,7 +64,7 @@ public class PantallaGameOver extends PantallaBase {
     private final InterfazCamara iC;
     private Image vistaImagen;
     private Image imagenActual;
-    final Texture profileP=GestorRecursos.get("profile.png");
+    final Texture profileP= get("profile.png");
 
     private int dimensionImagen;
 
@@ -73,7 +74,9 @@ public class PantallaGameOver extends PantallaBase {
 
     public PantallaGameOver(final MyGdxGame game, final InterfazCamara interfazCamara){
         super(game);
-        fondoGameOver = GestorRecursos.get("GameOver.jpeg");
+        String[] fondos = {"GameOver.jpeg","background2.jpg","background3.jpg","background4.jpg"};
+        int valor = (int) Math.floor(Math.random()*4);
+        fondoGameOver = get(fondos[valor]);
         aspect = new Skin(Gdx.files.internal("skins/default/skin/uiskin.json"));
         font = new BitmapFont();
         isRankingLoaded = false;
@@ -112,8 +115,8 @@ public class PantallaGameOver extends PantallaBase {
 
         //Boton start con imagen
         retry = new ImageButton(aspect, "reiniciar");
-        retry.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-retry.png")));
-        retry.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-retry.png")));
+        retry.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(get("B-retry.png")));
+        retry.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(get("B-retry.png")));
         retry.setSize(retry.getStyle().imageUp.getMinWidth(), retry.getStyle().imageUp.getMinHeight());
         float x= (float)Gdx.graphics.getWidth()/2.0f;
         float xm= retry.getStyle().imageUp.getMinWidth()/2.0f;
@@ -126,8 +129,8 @@ public class PantallaGameOver extends PantallaBase {
         //Boton retry con imagen
 
         home = new ImageButton(aspect, "inicio");
-        home.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-home.png")));
-        home.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-home.png")));
+        home.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(get("B-home.png")));
+        home.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(get("B-home.png")));
         home.setSize(0.2f*home.getStyle().imageUp.getMinWidth(), 0.2f*home.getStyle().imageUp.getMinHeight());
 
         float x3= (float) 0.1*home.getStyle().imageUp.getMinWidth();

@@ -41,7 +41,7 @@ public class Tablero extends Actor {
         this.partida.getEscenario().addActor(caja);
         this.vPieza = null;
         this.sonidoFila = Gdx.audio.newSound(Gdx.files.internal("Music/lightsaber_04.wav"));
-        this.bgTab = new Texture(Gdx.files.internal("bg_tablero.png"));
+        this.bgTab = new Texture(Gdx.files.internal("bg_tablero.jpg"));
         pintarAvance = false;
         cuantasFilas = 0f;
     }
