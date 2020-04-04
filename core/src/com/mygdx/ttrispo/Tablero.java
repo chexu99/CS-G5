@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.mygdx.ttrispo.pantalla.Partida;
+import com.mygdx.ttrispo.Pantalla.Partida;
 
 public class Tablero extends Actor {
     public static int tablero[][];
