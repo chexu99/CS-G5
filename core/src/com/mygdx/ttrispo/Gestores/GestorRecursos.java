@@ -51,10 +51,6 @@ public  class GestorRecursos {
         manager.load("OCompleta.png", Texture.class);
         manager.load("background.jpeg", Texture.class);
         manager.load("GameOver.jpeg", Texture.class);
-        manager.load("background2.jpg", Texture.class);
-        manager.load("background3.jpg", Texture.class);
-        manager.load("background4.jpg", Texture.class);
-
 
         //musica
         manager.load("Music/The Force Theme.mp3", Music.class); //inicio
