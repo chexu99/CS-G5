@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.mygdx.ttrispo.Pantalla.Partida;
+import com.mygdx.ttrispo.pantalla.Partida;
 
 public class Tablero extends Actor {
     public static int tablero[][];
@@ -41,7 +41,7 @@ public class Tablero extends Actor {
         this.partida.getEscenario().addActor(caja);
         this.vPieza = null;
         this.sonidoFila = Gdx.audio.newSound(Gdx.files.internal("Music/lightsaber_04.wav"));
-        this.bgTab = new Texture(Gdx.files.internal("bg_tablero.png"));
+        this.bgTab = new Texture(Gdx.files.internal("bg_tablero.jpg"));
         pintarAvance = false;
         cuantasFilas = 0f;
     }
