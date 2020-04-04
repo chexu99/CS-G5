@@ -1,4 +1,4 @@
-package com.mygdx.ttrispo.pantalla;
+package com.mygdx.ttrispo.Pantalla;
 
  import com.badlogic.gdx.Gdx;
  import com.badlogic.gdx.audio.Music;

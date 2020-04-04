@@ -1,6 +1,6 @@
 package com.mygdx.ttrispo.Gestores;
 
-import com.mygdx.ttrispo.pantalla.Partida;
+import com.mygdx.ttrispo.Pantalla.Partida;
 
 public class GestorEstado {
     public static final int SINPIEZA = 2; //Valor del Gestor de Estado cuando no hay pieza en el tablero
