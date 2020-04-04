@@ -30,6 +30,5 @@ public class LoadingBar extends Actor {
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(reg, getX(), getY(), logo.getMinWidth() + 30, logo.getMinHeight() + 30);
     }
-    //Emulating a bugfix to commit
 
 }
