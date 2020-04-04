@@ -64,6 +64,7 @@ public class PantallaGameOver extends PantallaBase {
     private final InterfazCamara iC;
     private Image vistaImagen;
     private Image imagenActual;
+
     final Texture profileP= get("profile.png");
     private String[] fondos = {"GameOver.jpeg","background1.jpg","background2.jpg","background3.jpg"};
 

@@ -4,10 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.ttrispo.pantalla.Partida;
+
+import static com.mygdx.ttrispo.Gestores.GestorRecursos.get;
 
 public class Tablero extends Actor {
     public static int tablero[][];
@@ -29,6 +35,9 @@ public class Tablero extends Actor {
     private Sound sonidoFila;
     private Texture bgTab;
 
+    private ImageButton home;
+    private Skin aspect;
+
     private boolean pintarAvance;
     private float cuantasFilas;
 
@@ -44,6 +53,19 @@ public class Tablero extends Actor {
         this.bgTab = new Texture(Gdx.files.internal("bg_tablero.jpg"));
         pintarAvance = false;
         cuantasFilas = 0f;
+
+        //boton home
+        aspect = new Skin(Gdx.files.internal("skins/default/skin/uiskin.json"));
+        home = new ImageButton(aspect, "inicio");
+        home.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(get("B-home.png")));
+        home.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(get("B-home.png")));
+        home.setSize(0.2f*home.getStyle().imageUp.getMinWidth(), 0.2f*home.getStyle().imageUp.getMinHeight());
+        float x= (float)Gdx.graphics.getWidth()*0.92f;
+        float y2= (float)Gdx.graphics.getHeight()/2;
+
+        home.setPosition((x), y2);
+        //super.stage.addActor(home);
+
     }
 
     @Override

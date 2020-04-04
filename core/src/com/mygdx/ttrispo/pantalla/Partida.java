@@ -3,7 +3,13 @@ package com.mygdx.ttrispo.pantalla;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.ttrispo.Botones.BotonBase;
 import com.mygdx.ttrispo.Gestores.GestorEstado;
 import com.mygdx.ttrispo.Gestores.GestorPiezas;
@@ -12,10 +18,14 @@ import com.mygdx.ttrispo.MyGdxGame;
 import com.mygdx.ttrispo.Pieza.Pieza;
 import com.mygdx.ttrispo.Tablero;
 
+
+
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Partida extends PantallaBase {
+import static com.mygdx.ttrispo.Gestores.GestorRecursos.get;
+
+public class Partida extends PantallaBase{
     private Texture fondoPartida;
     private Tablero tablero;
     private ProgresoPartida progresoPartida;
@@ -39,9 +49,13 @@ public class Partida extends PantallaBase {
     private float timeSeconds, fiftySeconds, thirySeconds = 0f;
     private int numCanciones = 9;
 
+
+    private ImageButton home;
+    private Skin aspect;
+
     private BotonBase bb;
 
-    public Partida(MyGdxGame game) {
+    public Partida(final MyGdxGame game) {
         super(game);
         gestorEstado = new GestorEstado(this);
         gestorPiezas = new GestorPiezas(this);
@@ -65,6 +79,32 @@ public class Partida extends PantallaBase {
         this.longitudPuntos = 0;
         this.puntuacion = 0;
         stage.addActor(bb);
+
+
+        //boton home
+        aspect = new Skin(Gdx.files.internal("skins/default/skin/uiskin.json"));
+        home = new ImageButton(aspect, "inicio");
+        home.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(get("B-home.png")));
+        home.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(get("B-home.png")));
+        home.setSize(0.2f*home.getStyle().imageUp.getMinWidth(), 0.2f*home.getStyle().imageUp.getMinHeight());
+        float x= (float)Gdx.graphics.getWidth()*0.85f;
+        float y2= (float)Gdx.graphics.getHeight()/2;
+
+        home.setPosition((x), y2);
+        super.stage.addActor(home);
+
+
+        //home listener
+        home.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+                game.setScreen(game.pantallaInicio);
+            }
+        });
+
+
+
     }
 
     private void cargarArray(ArrayList<Music> listaCanciones) {
@@ -90,11 +130,13 @@ public class Partida extends PantallaBase {
     }
     private void treintaSegundos(float delta) {
         thirySeconds += Gdx.graphics.getDeltaTime();
+
         if(thirySeconds >= Thirty30){
             thirySeconds -= Thirty30;
             segundaPieza = true;
         }
     }
+
     private void cincuentaSegundos(float delta) {
 
         fiftySeconds += Gdx.graphics.getDeltaTime();
@@ -316,6 +358,12 @@ public class Partida extends PantallaBase {
     
     public long getPuntuacion(){
         return this.puntuacion;
+    }
+
+    public int getTiempo(){
+        float tAux = this.thirySeconds;
+        int tiempo= (int)tAux;
+        return tiempo;
     }
     
     public void setPuntuacion(int i) {
