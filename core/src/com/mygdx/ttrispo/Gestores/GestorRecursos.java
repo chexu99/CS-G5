@@ -6,7 +6,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 
 import com.mygdx.ttrispo.MyGdxGame;
-import com.mygdx.ttrispo.Pantalla.PantallaGameOver;
+import com.mygdx.ttrispo.pantalla.PantallaGameOver;
 import com.mygdx.ttrispo.com.mygdx.ttrispo.camara.InterfazCamara;
 
 import static java.lang.Thread.sleep;
@@ -51,9 +51,6 @@ public  class GestorRecursos {
         manager.load("OCompleta.png", Texture.class);
         manager.load("background.jpeg", Texture.class);
         manager.load("GameOver.jpeg", Texture.class);
-        manager.load("background1.jpeg", Texture.class);
-        manager.load("background2.jpeg", Texture.class);
-        manager.load("background3.jpeg", Texture.class);
 
         //musica
         manager.load("Music/The Force Theme.mp3", Music.class); //inicio

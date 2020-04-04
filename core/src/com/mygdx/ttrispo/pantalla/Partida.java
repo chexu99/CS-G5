@@ -1,4 +1,4 @@
-package com.mygdx.ttrispo.Pantalla;
+package com.mygdx.ttrispo.pantalla;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -47,6 +47,7 @@ public class Partida extends PantallaBase {
         gestorPiezas = new GestorPiezas(this);
         filaGenera = 0;
         cambiarFila = false;
+
         //SEGUNDA PIEZA
         segundaPieza = false;
         gestorEstado2ndPieza = new GestorEstado(this);

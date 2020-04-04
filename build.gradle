@@ -10,7 +10,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.2'
+        classpath 'com.android.tools.build:gradle:3.5.3'
         classpath 'com.google.gms:google-services:4.3.2'
 
     }
@@ -22,12 +22,10 @@ plugins {
 
 sonarqube {
   properties {
-    property "sonar.projectKey", "chexu99_TTrispoOriginal"
+    property "sonar.projectKey", "chexu99_CS-G5"
     property "sonar.organization", "chexu99"
     property "sonar.host.url", "https://sonarcloud.io"
-    property "sonar.login", "428788b6874f027ad8040b76b1a110f73b7d7922"
-
-
+    property "sonar.login", "e727badb5e7c5c2f3f67930e109365ed218c397e"
   }
 }
 
@@ -91,3 +89,5 @@ project(":core") {
         implementation "de.tomgrill.gdxfirebase:gdx-firebase-core:0.0.4-SNAPSHOT"
     }
 }
+
+
