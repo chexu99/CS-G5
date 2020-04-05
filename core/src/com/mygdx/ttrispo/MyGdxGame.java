@@ -45,8 +45,8 @@ public class MyGdxGame extends Game implements ApplicationListener {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
         GestorRecursos.cargarImagenes();
         myGdxGame = this;
-        ratioPixelesHeight = (float) Gdx.graphics.getHeight()/GestorRecursos.get("background.jpeg").getHeight();
-        ratioPixelesWidth = (float) Gdx.graphics.getWidth()/GestorRecursos.get("background.jpeg").getWidth();    //pixeles = pantallaMovil/background
+        ratioPixelesHeight = (float) Gdx.graphics.getHeight()/GestorRecursos.get("background.jpg").getHeight();
+        ratioPixelesWidth = (float) Gdx.graphics.getWidth()/GestorRecursos.get("background.jpg").getWidth();    //pixeles = pantallaMovil/background
         pantallaInicio = new PantallaInicio(myGdxGame);
         pantallaAjustes = new PantallaAjustes(myGdxGame);
         firebaseHelper = new FirebaseHelper();

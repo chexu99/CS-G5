@@ -51,8 +51,12 @@ public class Partida extends PantallaBase{
 
 
     private ImageButton home;
+    private ImageButton pausa;
     private Skin aspect;
 
+
+
+    private boolean paused;
     private BotonBase bb;
 
     public Partida(final MyGdxGame game) {
@@ -60,7 +64,9 @@ public class Partida extends PantallaBase{
         gestorEstado = new GestorEstado(this);
         gestorPiezas = new GestorPiezas(this);
         filaGenera = 0;
+        paused=false;
         cambiarFila = false;
+        aspect = new Skin(Gdx.files.internal("skins/default/skin/uiskin.json"));
 
         //SEGUNDA PIEZA
         segundaPieza = false;
@@ -68,7 +74,7 @@ public class Partida extends PantallaBase{
         gestorPiezas2ndPieza = new GestorPiezas(this);
 
         bb = new BotonBase(stage, gestorEstado, gestorEstado2ndPieza);
-        fondoPartida = GestorRecursos.get("background.jpeg");
+        fondoPartida = GestorRecursos.get("background.jpg");
 
         tablero = new Tablero(this);
         tablero.setPosition(posicionX, posicionY);
@@ -81,18 +87,31 @@ public class Partida extends PantallaBase{
         stage.addActor(bb);
 
 
-        //boton home
-        aspect = new Skin(Gdx.files.internal("skins/default/skin/uiskin.json"));
+        //Boton pause
+        pausa = new ImageButton(aspect, "reiniciar");
+        pausa.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(get("pause.png")));
+        pausa.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(get("pause.png")));
+        pausa.setSize(pausa.getStyle().imageUp.getMinWidth()/8, pausa.getStyle().imageUp.getMinHeight()/8);
+        float xp= (float)Gdx.graphics.getWidth()*0.03f;
+
+        float yp= (float)Gdx.graphics.getHeight()/2;
+
+
+        pausa.setPosition((xp), yp);
+        super.stage.addActor(pausa);
+
+        //Boton home
+
         home = new ImageButton(aspect, "inicio");
         home.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(get("B-home.png")));
         home.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(get("B-home.png")));
         home.setSize(0.2f*home.getStyle().imageUp.getMinWidth(), 0.2f*home.getStyle().imageUp.getMinHeight());
-        float x= (float)Gdx.graphics.getWidth()*0.85f;
-        float y2= (float)Gdx.graphics.getHeight()/2;
+        float xh= (float)Gdx.graphics.getWidth()*0.9f;
 
-        home.setPosition((x), y2);
+        float yh= (float)Gdx.graphics.getHeight()/2;
+
+        home.setPosition((xh),  yh);
         super.stage.addActor(home);
-
 
         //home listener
         home.addListener(new ClickListener(){
@@ -104,8 +123,42 @@ public class Partida extends PantallaBase{
         });
 
 
+        //PAUSA listener
+        pausa.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (paused=false){
+            Pause();
+            paused=true;
+                }
+                else{
+                    Start();
+                    paused=true;
+                }
+
+            }
+        });
+
+
+
+
+
+
+
 
     }
+
+
+    public void Pause(){
+        
+    }
+
+    public void Start(){
+
+    }
+
+
+
 
     private void cargarArray(ArrayList<Music> listaCanciones) {
         listaCanciones.add(Gdx.audio.newMusic(Gdx.files.internal("Music/Original Tetris Soundtrack.mp3")));

@@ -29,7 +29,7 @@ public class ProgresoPartida extends Actor {
 
         //imprimo tiempo
         glyphLayout.setText(font, String.valueOf(30-partida.getTiempo()));
-        font.draw(batch, glyphLayout,(Gdx.graphics.getWidth()-glyphLayout.width)/7, 0.50f*Gdx.graphics.getHeight());
+        font.draw(batch, glyphLayout,(Gdx.graphics.getWidth()-glyphLayout.width)/2, 0.92f*Gdx.graphics.getHeight());
 
 
 
