@@ -51,7 +51,7 @@ public class Partida extends PantallaBase{
 
 
     private ImageButton home;
-    private ImageButton pausa;
+    private ImageButton pausa,resume;
     private Skin aspect;
 
 
@@ -89,9 +89,10 @@ public class Partida extends PantallaBase{
 
         //Boton pause
         pausa = new ImageButton(aspect, "reiniciar");
-        pausa.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(get("pause.png")));
-        pausa.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(get("pause.png")));
-        pausa.setSize(pausa.getStyle().imageUp.getMinWidth()/8, pausa.getStyle().imageUp.getMinHeight()/8);
+            pausa.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(get("playstop.png")));
+            pausa.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(get("playstop.png")));
+
+        pausa.setSize(pausa.getStyle().imageUp.getMinWidth()/5, pausa.getStyle().imageUp.getMinHeight()/5);
         float xp= (float)Gdx.graphics.getWidth()*0.03f;
 
         float yp= (float)Gdx.graphics.getHeight()/2;
@@ -99,6 +100,7 @@ public class Partida extends PantallaBase{
 
         pausa.setPosition((xp), yp);
         super.stage.addActor(pausa);
+
 
         //Boton home
 
@@ -127,17 +129,14 @@ public class Partida extends PantallaBase{
         pausa.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (paused=false){
-            Pause();
-            paused=true;
-                }
-                else{
-                    Start();
-                    paused=true;
-                }
-
+               if (paused){
+                   paused= false;
+               }else{
+                   paused=true;
+               }
             }
         });
+
 
 
 
@@ -234,7 +233,10 @@ public class Partida extends PantallaBase{
         batch.begin();
         batch.draw(fondoPartida, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         batch.end();
-        cicloDeVida(delta); // Ciclo de vida
+        if (paused){
+
+        }else{
+        cicloDeVida(delta); }// Ciclo de vida
         stage.draw();  // Pintar los actores
     }
 
