@@ -29,9 +29,9 @@ public class Partida extends PantallaBase{
     private Texture fondoPartida;
     private Tablero tablero;
     private ProgresoPartida progresoPartida;
-    private GestorEstado gestorEstado;
+    public GestorEstado gestorEstado;
     private GestorPiezas gestorPiezas;
-    private static GestorEstado gestorEstado2ndPieza;
+    public static GestorEstado gestorEstado2ndPieza;
     private GestorPiezas gestorPiezas2ndPieza;
     public static float posicionX, posicionY;
     private static long puntuacion;

@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class PantallaAjustes extends PantallaBase {
     private TextButton BPiezaI, BPiezaJ, BPiezaL, BPiezaO, BPiezaS, BPiezaT, BPiezaZ;
-    private ImageButton Home, Play;
+    private ImageButton Home, Play, Hard;
     private Skin skin;
     private Color[] colores = {null, Color.YELLOW, Color.VIOLET, Color.ORANGE , Color.CYAN, Color.RED, Color.GREEN, Color.BLUE };
     private Texture fondoAjustes;
@@ -71,6 +71,7 @@ public class PantallaAjustes extends PantallaBase {
 
         Home = new ImageButton(skin, "atras");
         Play = new ImageButton(skin, "start");
+        Hard = new ImageButton(skin, "hard");
 
         t=1; s=2; z=3; i=4; o=5; l=6; j=7;
 
@@ -116,14 +117,19 @@ public class PantallaAjustes extends PantallaBase {
         table.row();
         table.add();
         //botón para jugar
-        table.add(Play).size(300,100).center();;
+        table.add(Play).size(300,100).center();
         Play.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-start.png")));
         Play.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-start.png")));
+        //boton de modo dificil
+        table.add(Hard).size(300,100).center();
+        Hard.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-hard.png")));
+        Hard.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-hard.png")));
         //boton de ir atrás
         table.add(Home).size(100,100).center();
         Home.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-atras.png")));
         Home.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-atras.png")));
-        table.add().size(300, 100);
+        table.add().size(200, 100);
+
 
         table.align(Align.center);
         table.setFillParent(true);
@@ -207,24 +213,19 @@ public class PantallaAjustes extends PantallaBase {
         Play.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                coloresPersonalizados = true;
-                texturaPiezas.add(null);//posicion 0, siempre es recomendable
-                texturaPiezas.add(getColorNuevoPieza(t)); // T = 1
-                System.out.println("Color pieza T: " + t);
-                texturaPiezas.add(getColorNuevoPieza(s)); // S = 2
-                System.out.println("Color pieza S: " + s);
-                texturaPiezas.add(getColorNuevoPieza(z)); // Z = 3
-                System.out.println("Color pieza Z: " + z);
-                texturaPiezas.add(getColorNuevoPieza(i)); // I = 4
-                System.out.println("Color pieza I: " + i);
-                texturaPiezas.add(getColorNuevoPieza(o)); // O = 5
-                System.out.println("Color pieza O: " + o);
-                texturaPiezas.add(getColorNuevoPieza(l)); // L = 6
-                System.out.println("Color pieza L: " + l);
-                texturaPiezas.add(getColorNuevoPieza(j)); // J = 7
-                System.out.println("Color pieza J: " + j);
-                sonidoJugar.play();
+                gameStart();
                 game.setScreen(new Partida(game));
+            }
+        });
+
+        Hard.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gameStart();
+                Partida part = new Partida(game);
+                part.gestorEstado.setVelocity(0.25f);
+                part.gestorEstado2ndPieza.setVelocity2(0.15f);
+                game.setScreen(part);
             }
         });
     }
@@ -232,6 +233,26 @@ public class PantallaAjustes extends PantallaBase {
 
     public static boolean getColoresPersonalizados(){
         return coloresPersonalizados;
+    }
+
+    private void gameStart(){
+        coloresPersonalizados = true;
+        texturaPiezas.add(null);//posicion 0, siempre es recomendable
+        texturaPiezas.add(getColorNuevoPieza(t)); // T = 1
+        System.out.println("Color pieza T: " + t);
+        texturaPiezas.add(getColorNuevoPieza(s)); // S = 2
+        System.out.println("Color pieza S: " + s);
+        texturaPiezas.add(getColorNuevoPieza(z)); // Z = 3
+        System.out.println("Color pieza Z: " + z);
+        texturaPiezas.add(getColorNuevoPieza(i)); // I = 4
+        System.out.println("Color pieza I: " + i);
+        texturaPiezas.add(getColorNuevoPieza(o)); // O = 5
+        System.out.println("Color pieza O: " + o);
+        texturaPiezas.add(getColorNuevoPieza(l)); // L = 6
+        System.out.println("Color pieza L: " + l);
+        texturaPiezas.add(getColorNuevoPieza(j)); // J = 7
+        System.out.println("Color pieza J: " + j);
+        sonidoJugar.play();
     }
 
     private int resetContador(int letra) {

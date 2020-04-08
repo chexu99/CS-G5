@@ -25,6 +25,7 @@ public  class GestorRecursos {
         manager.load("B-retry.png", Texture.class);
         manager.load("B-home.png", Texture.class);
         manager.load("colorPiezas.png", Texture.class);
+        manager.load("B-hard.png", Texture.class);
 
         manager.load("B-dere.jpg", Texture.class);
         manager.load("BP-dere.jpeg", Texture.class);

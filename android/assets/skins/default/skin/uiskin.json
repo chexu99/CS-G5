@@ -33,7 +33,8 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 		izquierda: {imageDown: white, imageUp: white},
 		derecha: {imageDown: white, imageUp: white},
 		abajo: {imageDown: white, imageUp: white},
-		foto: {imageDown: white, imageUp: white}
+		foto: {imageDown: white, imageUp: white},
+		hard: {down: white, imageUp: default-round}
 },
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: { down: white, up: default-round, font: default-font, fontColor: white },
