@@ -8,7 +8,15 @@ com.badlogic.gdx.graphics.Color: {
 	transparent: { a: 0, b: 0, g: 0, r: 0 }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
-	dialogDim: { name: white, color: { r: 0, g: 0, b: 0, a: 0.45 } },
+	dialogDim: {
+		name: white,
+		color: {
+			r: 0,
+			g: 0,
+			b: 0,
+			a: 0.45
+		}
+	}
 },
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	default: { down: default-round-down, up: default-round },
@@ -20,12 +28,24 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle:{
 		atras: {down: default-round-down, up: default-round, font: default-font, fontColor: white},
 		tetris: {down: default-round-down, up: default-round, font: default-font, fontColor: white},
 		reiniciar: {down: default-round-down, up: default-round, font: default-font, fontColor: white},
-		inicio: {down: default-round-down, up: default-round, font: default-font, fontColor: white},
+	inicio: {
+		down: default-round-down,
+		up: default-round,
+		font: default-font,
+		fontColor: white
+	}
 },
 com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 		start: {down: white, imageUp: default-round},
 		ajustes: {down: white, imageUp: default-round},
-		atras: {down: white, imageUp: default-round},
+	idioma: {
+		down: white,
+		imageUp: white
+	},
+	atras: {
+		down: white,
+		imageUp: default-round
+	},
 		tetris: {down: white, imageUp: default-round},
 		reiniciar: {down: white, imageUp: default-round},
 		inicio: {down: white, imageUp: default-round},
@@ -34,6 +54,7 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 		derecha: {imageDown: white, imageUp: white},
 		abajo: {imageDown: white, imageUp: white},
 		foto: {imageDown: white, imageUp: white}
+
 },
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: { down: white, up: default-round, font: default-font, fontColor: white },
@@ -82,12 +103,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Touchpad$TouchpadStyle: {
 },
 com.badlogic.gdx.scenes.scene2d.ui.Tree$TreeStyle: {
 	default: { minus: tree-minus, plus: tree-plus, selection: default-select-selection }
-},
-com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
-	default: {
-		label: { font: default-font, fontColor: white },
-		background: default-pane, wrapWidth: 150
-	}
-},
+}
+
 }
 

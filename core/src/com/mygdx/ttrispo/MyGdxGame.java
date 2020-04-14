@@ -17,6 +17,7 @@ public class MyGdxGame extends Game implements ApplicationListener {
     public static float VARIABLE_GLOBAL_PROGRESO = 0;
 
     public PantallaInicio pantallaInicio;
+    private boolean estadoIdioma = false;
     public volatile PantallaGameOver pantallaGameOver;
     public PantallaAjustes pantallaAjustes;
     public static FirebaseHelper firebaseHelper;
@@ -45,8 +46,8 @@ public class MyGdxGame extends Game implements ApplicationListener {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
         GestorRecursos.cargarImagenes();
         myGdxGame = this;
-        ratioPixelesHeight = (float) Gdx.graphics.getHeight()/GestorRecursos.get("background.jpeg").getHeight();
-        ratioPixelesWidth = (float) Gdx.graphics.getWidth()/GestorRecursos.get("background.jpeg").getWidth();    //pixeles = pantallaMovil/background
+        ratioPixelesHeight = (float) Gdx.graphics.getHeight() / GestorRecursos.get("background.png").getHeight();
+        ratioPixelesWidth = (float) Gdx.graphics.getWidth() / GestorRecursos.get("background.png").getWidth();    //pixeles = pantallaMovil/background
         pantallaInicio = new PantallaInicio(myGdxGame);
         pantallaAjustes = new PantallaAjustes(myGdxGame);
         firebaseHelper = new FirebaseHelper();
@@ -65,6 +66,14 @@ public class MyGdxGame extends Game implements ApplicationListener {
                 });
             }
         }).start();
+    }
+
+    public boolean isEstadoIdioma() {
+        return estadoIdioma;
+    }
+
+    public void setEstadoIdioma(boolean estadoIdioma) {
+        this.estadoIdioma = estadoIdioma;
     }
 
     @Override

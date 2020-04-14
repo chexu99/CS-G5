@@ -16,8 +16,10 @@ public  class GestorRecursos {
     private static int contador = 0;
 
     public static void cargarImagenes() {
+        //INICIO
         manager.load("fondoInicio.jpg", Texture.class);
         manager.load("tetris.png", Texture.class);
+        //INGLES
         manager.load("B-start.png", Texture.class);
         manager.load("B-ajustes.png", Texture.class);
         manager.load("colorPiezas.png", Texture.class);
@@ -25,6 +27,14 @@ public  class GestorRecursos {
         manager.load("B-retry.png", Texture.class);
         manager.load("B-home.png", Texture.class);
         manager.load("colorPiezas.png", Texture.class);
+        manager.load("idioma.png", Texture.class);
+        manager.load("ajustes.png", Texture.class);
+        manager.load("empezar.png", Texture.class);
+        manager.load("backgroundEs.png", Texture.class);
+        manager.load("piecesColor.png", Texture.class);
+
+
+
 
         manager.load("B-dere.jpg", Texture.class);
         manager.load("BP-dere.jpeg", Texture.class);
@@ -49,7 +59,7 @@ public  class GestorRecursos {
         manager.load("LCompleta.png", Texture.class);
         manager.load("ICompleta.png", Texture.class);
         manager.load("OCompleta.png", Texture.class);
-        manager.load("background.jpeg", Texture.class);
+        manager.load("background.png", Texture.class);
         manager.load("GameOver.jpeg", Texture.class);
 
         //musica

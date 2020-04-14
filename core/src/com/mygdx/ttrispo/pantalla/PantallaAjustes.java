@@ -46,7 +46,14 @@ public class PantallaAjustes extends PantallaBase {
         super(game);
         skin = new Skin(Gdx.files.internal("skins/default/skin/uiskin.json"));
         fondoAjustes = GestorRecursos.get("fondoInicio.jpg");
-        fraseAjustes = new TextureRegion(GestorRecursos.get("colorPiezas.png"));
+        if (game.isEstadoIdioma()) {
+            fraseAjustes = new TextureRegion(GestorRecursos.get("piecesColor.png"));
+
+        } else {
+            fraseAjustes = new TextureRegion(GestorRecursos.get("colorPiezas.png"));
+
+
+        }
         coloresPersonalizados = false;
         cambio = false;
         tiempoInicial = 0;
@@ -70,7 +77,9 @@ public class PantallaAjustes extends PantallaBase {
         BPiezaJ.getLabel().setFontScale(3);
 
         Home = new ImageButton(skin, "atras");
+
         Play = new ImageButton(skin, "start");
+
 
         t=1; s=2; z=3; i=4; o=5; l=6; j=7;
 
@@ -117,8 +126,14 @@ public class PantallaAjustes extends PantallaBase {
         table.add();
         //botón para jugar
         table.add(Play).size(300,100).center();;
-        Play.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-start.png")));
-        Play.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-start.png")));
+        if (game.isEstadoIdioma()) {
+            Play.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-start.png")));
+            Play.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-start.png")));
+        } else {
+            Play.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("empezar.png")));
+            Play.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("empezar.png")));
+        }
+
         //boton de ir atrás
         table.add(Home).size(100,100).center();
         Home.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-atras.png")));

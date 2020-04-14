@@ -18,7 +18,7 @@ package com.mygdx.ttrispo.pantalla;
 
 public class PantallaInicio extends PantallaBase{
     private Skin skin;
-    private ImageButton start, settings;
+    private ImageButton start, settings, idioma;
     private Texture fondoInicio;
     private Sprite paraGirar1, paraGirar2;
     private long tiempoInicial;
@@ -27,6 +27,7 @@ public class PantallaInicio extends PantallaBase{
     private Image tetris;
     private Music musicaInicio;
     private Sound sonidoOptions, sonidoJugar;
+
 
     public PantallaInicio (final MyGdxGame game) {
         super(game);
@@ -45,22 +46,42 @@ public class PantallaInicio extends PantallaBase{
 
         //Boton start con imagen
         start = new ImageButton(skin, "start");
-        start.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-start.png")));
-        start.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-start.png")));
+        if (game.isEstadoIdioma()) {
+            start.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-start.png")));
+            start.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-start.png")));
+        } else {
+            start.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("empezar.png")));
+            start.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("empezar.png")));
+        }
         start.setSize(start.getStyle().imageUp.getMinWidth(), start.getStyle().imageUp.getMinHeight());
         start.setPosition((Gdx.graphics.getWidth() - start.getStyle().imageUp.getMinWidth()) / 2.0f, 0.3f * Gdx.graphics.getHeight());
         super.stage.addActor(start);
-
         //Boton ajustes con imagen
         settings = new ImageButton(skin, "ajustes");
-        settings.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-ajustes.png")));
-        settings.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-ajustes.png")));
+        if (game.isEstadoIdioma()) {
+            settings.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-ajustes.png")));
+            settings.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("B-ajustes.png")));
+
+        } else {
+            settings.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("ajustes.png")));
+            settings.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("ajustes.png")));
+        }
         settings.setSize(settings.getStyle().imageUp.getMinWidth()/1.5f, settings.getStyle().imageUp.getMinHeight()/1.5f);
         settings.setPosition((Gdx.graphics.getWidth() - settings.getStyle().imageUp.getMinWidth()/1.5f)/ 2.0f,
                 0.2f * Gdx.graphics.getHeight());
         super.stage.addActor(settings);
 
-        //Eventos de ambos
+
+        //Boton idioma con imagen
+        idioma = new ImageButton(skin, "idioma");
+        idioma.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("idioma.png")));
+        idioma.getStyle().imageDown = new TextureRegionDrawable(new TextureRegion(GestorRecursos.get("idioma.png")));
+        idioma.setSize(settings.getStyle().imageUp.getMinWidth() / 1.5f, idioma.getStyle().imageUp.getMinHeight() / 1.5f);
+        idioma.setPosition((Gdx.graphics.getWidth() - settings.getStyle().imageUp.getMinWidth() / 1.5f) / 2.0f,
+                0.1f * Gdx.graphics.getHeight());
+        super.stage.addActor(idioma);
+
+        //Eventos de los botones
         start.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -70,12 +91,20 @@ public class PantallaInicio extends PantallaBase{
                 musicaInicio.stop();
             }
         });
+        idioma.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                boolean estadoIdiomaAux = !game.isEstadoIdioma();
+                game.setEstadoIdioma(estadoIdiomaAux);
+                game.setScreen(new PantallaInicio(game));
+
+            }
+        });
 
         settings.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 sonidoOptions.play(0.4f);
-
                 musicaInicio.stop();
                 game.setScreen(new PantallaAjustes(game));
             }

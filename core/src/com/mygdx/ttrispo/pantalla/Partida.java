@@ -54,7 +54,11 @@ public class Partida extends PantallaBase {
         gestorPiezas2ndPieza = new GestorPiezas(this);
 
         bb = new BotonBase(stage, gestorEstado, gestorEstado2ndPieza);
-        fondoPartida = GestorRecursos.get("background.jpeg");
+        if (game.isEstadoIdioma()) {
+            fondoPartida = GestorRecursos.get("background.png");
+        } else {
+            fondoPartida = GestorRecursos.get("backgroundEs.png");
+        }
 
         tablero = new Tablero(this);
         tablero.setPosition(posicionX, posicionY);
